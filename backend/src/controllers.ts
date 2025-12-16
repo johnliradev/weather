@@ -5,12 +5,12 @@ export async function getForecastController(
   request: FastifyRequest,
   reply: FastifyReply
 ) {
-  const { location, startDate, endDate } = request.params as {
+  const { location, date1, date2, unit } = request.params as {
     location: string;
-    startDate: string;
-    endDate: string;
+    date1: string;
+    date2: string;
+    unit: "metric" | "us" | "uk";
   };
-  if (!location) throw new Error("Location is required");
-  const data = await fetchForecast(location, startDate, endDate);
+  const data = await fetchForecast(location, date1, date2, unit);
   reply.status(200).send({ data });
 }
