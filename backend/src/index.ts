@@ -12,7 +12,7 @@ import { env } from "./env.js";
 import { errorHandler } from "./err/error-handler.js";
 import { Router } from "./routes.js";
 
-const app = fastify({
+export const app = fastify({
   logger: true,
 }).withTypeProvider<ZodTypeProvider>();
 

@@ -5,6 +5,8 @@ const _env = z.object({
   PORT: z.coerce.number().min(1, ".env is invalid: PORT not defined"),
   API_KEY: z.string().min(1, ".env is invalid: API_KEY not defined"),
   API_URL: z.string().min(1, ".env is invalid: API_URL not defined"),
+  REDIS_HOST: z.string().min(1, ".env is invalid: API_URL not defined"),
+  REDIS_PORT: z.coerce.number().min(1, ".env is invalid: API_URL not defined"),
 });
 
 function validateEnv() {
