@@ -17,7 +17,14 @@ services:
       - ./backend/src:/app/src
       - ./backend/package.json:/app/package.json
     command: npm run dev
-
+  frontend:
+    build: ./frontend
+    ports:
+      - 5173:5173
+    volumes:
+      - ./frontend/src:/app/src
+      - ./frontend/index.html:/app/index.html
+    command: npm run dev
   redis:
     image: redis:alpine
     ports:
