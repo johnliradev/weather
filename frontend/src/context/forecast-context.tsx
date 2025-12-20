@@ -159,7 +159,6 @@ export const ForecastProvider = ({ children }: { children: ReactNode }) => {
     setError(null);
     try {
       const response = await api.getForecast(city);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       setStatusCode(response.statusCode ?? null);
       setFromCache(response.fromCache ?? null);
