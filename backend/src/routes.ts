@@ -8,7 +8,7 @@ export async function Router(app: FastifyInstance) {
     reply.status(200).send({ message: "ok" })
   );
   app.get(
-    "/forecast/:location/:date1/:date2/:unit",
+    "/forecast/:location/:unit",
     {
       schema: {
         params: z.object({
@@ -16,14 +16,6 @@ export async function Router(app: FastifyInstance) {
             .string()
             .min(1, "Location is required")
             .describe("Ex: São Paulo"),
-          date1: z
-            .string()
-            .min(1, "Start date is required")
-            .describe("Ex: 2025-12-16"),
-          date2: z
-            .string()
-            .min(1, "End date is required")
-            .describe("Ex: 2025-12-20"),
           unit: z.enum(["metric", "us", "uk"]).describe("Ex: metric"),
         }),
       },

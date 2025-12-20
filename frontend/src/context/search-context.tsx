@@ -1,18 +1,17 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-type PeriodOption = "today" | "tomorrow" | "3days" | "7days";
 type SearchContextType = {
   city: string;
-  periodOption: PeriodOption;
+  periodOption: number;
   setCity: (city: string) => void;
-  setPeriodOption: (option: PeriodOption) => void;
+  setPeriodOption: (days: number) => void;
 };
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
 export const SearchProvider = ({ children }: { children: ReactNode }) => {
   const [city, setCity] = useState("");
-  const [periodOption, setPeriodOption] = useState<PeriodOption>("today");
+  const [periodOption, setPeriodOption] = useState<number>(0);
   return (
     <SearchContext.Provider
       value={{ city, setCity, periodOption, setPeriodOption }}

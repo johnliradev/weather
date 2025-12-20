@@ -6,6 +6,7 @@ import {
   jsonSchemaTransform,
   type ZodTypeProvider,
 } from "fastify-type-provider-zod";
+import fastifyCors from "@fastify/cors";
 import scalarApiReference from "@scalar/fastify-api-reference";
 import type { FastifyInstance } from "fastify";
 import { env } from "./env.js";
@@ -21,6 +22,9 @@ app.setSerializerCompiler(serializerCompiler);
 app.setErrorHandler(errorHandler);
 
 const registerPlugins = async (app: FastifyInstance) => {
+  await app.register(fastifyCors, {
+    origin: true,
+  });
   await app.register(fastifySwagger, {
     openapi: {
       info: {

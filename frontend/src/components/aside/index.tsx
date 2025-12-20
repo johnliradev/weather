@@ -2,8 +2,10 @@ import { Cloud } from "lucide-react";
 import { Examples } from "./_components/examples";
 import { Period } from "./_components/period";
 import { Search } from "./_components/search";
+import { useForecast } from "../../context/forecast-context";
 
 export const Aside = () => {
+  const { getForecast } = useForecast();
   return (
     <aside className="w-1/3 flex flex-col  gap-4 bg-white p-8 rounded-lg">
       {/* "Logo" */}
@@ -16,6 +18,7 @@ export const Aside = () => {
       <Period />
       <button
         type="button"
+        onClick={getForecast}
         className="w-full h-12 rounded bg-zinc-400 text-white font-medium text-base mt-4"
       >
         Search Forecast

@@ -2,10 +2,10 @@ import { Calendar } from "lucide-react";
 import { useSearch } from "../../../context/search-context";
 
 const periodOptions = [
-  { label: "Today", value: "today" },
-  { label: "Tomorrow", value: "tomorrow" },
-  { label: "3 Days", value: "3days" },
-  { label: "7 Days", value: "7days" },
+  { label: "Today", value: 0 },
+  { label: "Tomorrow", value: 1 },
+  { label: "3 Days", value: 3 },
+  { label: "7 Days", value: 7 },
 ];
 
 export const Period = () => {
