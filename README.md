@@ -78,9 +78,15 @@ O comando faz:
       - Próximos 7 dias (a partir de amanhã)
 3. **Clique em "Search Forecast"** para buscar a previsão
 4. **Observe os indicadores de cache**:
+<<<<<<< HEAD
    - "Retrieved from Redis" (roxo): dados vieram do cache
         - "Saved on Redis" (azul): dados foram salvos no cache
         - Tempo de resposta em milissegundos
+=======
+      **\*\***- "Retrieved from Redis" (roxo): dados vieram do cache
+      - "Saved on Redis" (azul): dados foram salvos no cache
+      - Tempo de resposta em milissegundos
+>>>>>>> e33cf4e6a66d5cc7e598fa033713b75fba1331e4
 
 #### Testando o Cache
 
