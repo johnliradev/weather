@@ -1,8 +1,11 @@
 import { Cloud, Eye, ThermometerSnowflake, ThermometerSun } from "lucide-react";
 import { useForecast } from "../../../context/forecast-context";
+import { useSearch } from "../../../context/search-context";
+import { formatTemperature } from "../../../utils/unit-converter";
 
 export const AdditionalDetails = () => {
   const { forecast } = useForecast();
+  const { unit } = useSearch();
 
   if (!forecast || !forecast.days.length) return null;
 
@@ -11,7 +14,7 @@ export const AdditionalDetails = () => {
   const details = [
     {
       label: "Max Temperature",
-      value: `${Math.round(day.tempmax)}°C`,
+      value: formatTemperature(day.tempmax, unit),
       icon: <ThermometerSun className="w-4 h-4 text-zinc-400" />,
     },
     {
@@ -21,7 +24,7 @@ export const AdditionalDetails = () => {
     },
     {
       label: "Min Temperature",
-      value: `${Math.round(day.tempmin)}°C`,
+      value: formatTemperature(day.tempmin, unit),
       icon: <ThermometerSnowflake className="w-4 h-4 text-zinc-400" />,
     },
     {

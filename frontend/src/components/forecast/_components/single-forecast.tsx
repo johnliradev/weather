@@ -3,11 +3,12 @@ import { useForecast } from "../../../context/forecast-context";
 import { CardForecast } from "./card-forecast";
 import { AdditionalDetails } from "./additional-details";
 import { useSearch } from "../../../context/search-context";
+import { formatTemperature, formatWindSpeed } from "../../../utils/unit-converter";
 
 export const SingleForecast = () => {
   // If prop not passed, get from context
   const { forecast } = useForecast();
-  const { periodOption } = useSearch();
+  const { periodOption, unit } = useSearch();
 
   // Defensive fallback
   if (!forecast || !forecast.days.length) return null;
@@ -21,7 +22,7 @@ export const SingleForecast = () => {
         <CardForecast
           title={"TEMPERATURE"}
           icon={<Thermometer className="w-4 h-4 text-zinc-400" />}
-          content={`${Math.round(day.temp)}°C`}
+          content={formatTemperature(day.temp, unit)}
           footer={day.conditions}
         />
         {/* Humidity Card */}
@@ -35,7 +36,7 @@ export const SingleForecast = () => {
         <CardForecast
           title={"WIND"}
           icon={<Wind className="w-4 h-4 text-zinc-400" />}
-          content={`${Math.round(day.windspeed)} km/h`}
+          content={formatWindSpeed(day.windspeed, unit)}
           footer={"Wind speed"}
         />
         {/* Rain Card */}

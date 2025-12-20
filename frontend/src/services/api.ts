@@ -1,6 +1,7 @@
 export const api = {
-  getForecast: async (city: string, unit = "metric") => {
-    const url = `/api/forecast/${city}/${unit}`;
+  getForecast: async (city: string) => {
+    // Sempre usa metric na API, conversão é feita no frontend
+    const url = `/api/forecast/${city}/metric`;
 
     try {
       const res = await fetch(url);

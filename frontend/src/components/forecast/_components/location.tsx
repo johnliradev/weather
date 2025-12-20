@@ -1,6 +1,7 @@
 import { Calendar } from "lucide-react";
 import { useForecast } from "../../../context/forecast-context";
 import { useSearch } from "../../../context/search-context";
+import { UnitSelector } from "./unit-selector";
 
 export const Location = () => {
   const { forecast } = useForecast();
@@ -15,15 +16,20 @@ export const Location = () => {
   };
 
   return (
-    <div className="px-6 py-8  rounded-t flex flex-col gap-2">
-      <h1 className="text-3xl font-bold text-black leading-tight">
-        {forecast?.resolvedAddress || <span className="text-zinc-400">—</span>}
-      </h1>
-      <div className="flex items-center gap-2 mt-1">
-        <Calendar className="w-4 h-4 text-zinc-500" strokeWidth={1.5} />
-        <span className="text-zinc-500 text-base">
-          {getPeriodLabel(periodOption)}
-        </span>
+    <div className="px-6 py-8 rounded-t flex flex-col gap-2">
+      <div className="flex justify-between items-start">
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-bold text-black leading-tight">
+            {forecast?.resolvedAddress || <span className="text-zinc-400">—</span>}
+          </h1>
+          <div className="flex items-center gap-2 mt-1">
+            <Calendar className="w-4 h-4 text-zinc-500" strokeWidth={1.5} />
+            <span className="text-zinc-500 text-base">
+              {getPeriodLabel(periodOption)}
+            </span>
+          </div>
+        </div>
+        <UnitSelector />
       </div>
     </div>
   );

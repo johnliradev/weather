@@ -1,6 +1,7 @@
 import React from "react";
 import { useForecast } from "../../../context/forecast-context";
 import { useSearch } from "../../../context/search-context";
+import { formatTemperature } from "../../../utils/unit-converter";
 
 function formatDay(dateStr: string): string {
   // Parse a data como local (YYYY-MM-DD) para evitar problemas de timezone
@@ -15,7 +16,7 @@ function formatDay(dateStr: string): string {
 
 export const ExtendedForecast: React.FC = () => {
   const { forecast } = useForecast();
-  const { periodOption } = useSearch();
+  const { periodOption, unit } = useSearch();
 
   if (!forecast || !forecast.days || !forecast.days.length) return null;
 
@@ -48,10 +49,13 @@ export const ExtendedForecast: React.FC = () => {
             </div>
             <div className="flex flex-col items-end">
               <span className="text-2xl font-bold text-zinc-700">
-                {Math.round(day.temp)}°C
+                {formatTemperature(day.temp, unit)}
               </span>
               <span className="font-medium text-zinc-400 text-xs mt-1">
-                {`${Math.round(day.tempmin)}° / ${Math.round(day.tempmax)}°`}
+                {`${formatTemperature(day.tempmin, unit)} / ${formatTemperature(
+                  day.tempmax,
+                  unit
+                )}`}
               </span>
             </div>
           </div>
