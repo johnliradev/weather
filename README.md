@@ -95,13 +95,13 @@ Para ver o cache em ação:
 
 1. Quando uma requisição é feita, o sistema primeiro verifica se os dados existem no Redis usando uma chave única baseada em: `forecast:{cidade}:{data}:{unidade}`
 2. Se os dados existirem no cache:
-      - Retorna imediatamente do Redis (muito rápido)
-      - Marca `fromCache: true` na resposta
+   - Retorna imediatamente do Redis (muito rápido)
+   - Marca `fromCache: true` na resposta
 3. Se os dados não existirem no cache:
-      - Busca da API externa
-      - Salva no Redis com TTL de 1 hora (3600 segundos)
-      - Retorna os dados
-      - Marca `fromCache: false` na resposta
+   - Busca da API externa
+   - Salva no Redis com TTL de 1 hora (3600 segundos)
+   - Retorna os dados
+   - Marca `fromCache: false` na resposta
 4. Após 1 hora, o cache expira automaticamente e os dados são buscados novamente da API externa
 
 ### Observações
