@@ -71,20 +71,16 @@ O comando faz:
 ### Como Usar
 
 1. **Digite o nome de uma cidade** no campo de busca (ex: São Paulo, New York, Tokyo)
-
 2. **Selecione o período** que deseja visualizar:
       - Hoje
       - Amanhã
       - Próximos 3 dias (a partir de amanhã)
       - Próximos 7 dias (a partir de amanhã)
-
 3. **Clique em "Search Forecast"** para buscar a previsão
-
 4. **Observe os indicadores de cache**:
-
-- "Retrieved from Redis" (roxo): dados vieram do cache
-   - "Saved on Redis" (azul): dados foram salvos no cache
-   - Tempo de resposta em milissegundos
+   - "Retrieved from Redis" (roxo): dados vieram do cache
+        - "Saved on Redis" (azul): dados foram salvos no cache
+        - Tempo de resposta em milissegundos
 
 #### Testando o Cache
 
