@@ -9,6 +9,24 @@ export async function getForecastController(
     location: string;
     unit: "metric" | "us" | "uk";
   };
-  const data = await fetchForecast(location, unit);
-  reply.status(200).send({ data });
+  const result = await fetchForecast(location, unit);
+
+  const response: {
+    data: any;
+    fromCache: boolean;
+    responseTime: number;
+    statusCode: number;
+    error?: any;
+  } = {
+    data: result.data,
+    fromCache: result.fromCache,
+    responseTime: result.responseTime,
+    statusCode: result.statusCode,
+  };
+
+  if (result.error) {
+    response.error = result.error;
+  }
+
+  reply.status(result.statusCode).send(response);
 }

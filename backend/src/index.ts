@@ -14,7 +14,15 @@ import { errorHandler } from "./err/error-handler.js";
 import { Router } from "./routes.js";
 
 export const app = fastify({
-  logger: true,
+  logger: {
+    transport: {
+      target: "pino-pretty",
+      options: {
+        translateTime: "HH:MM:ss Z",
+        ignore: "pid,hostname",
+      },
+    },
+  },
 }).withTypeProvider<ZodTypeProvider>();
 
 app.setValidatorCompiler(validatorCompiler);

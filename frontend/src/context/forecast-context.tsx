@@ -136,6 +136,9 @@ type ForecastContextType = {
   setLoading: (loading: boolean) => void;
   error: string | null;
   setError: (error: string | null) => void;
+  fromCache: boolean | null;
+  responseTime: number | null;
+  statusCode: number | null;
 };
 
 const ForecastContext = createContext<ForecastContextType | undefined>(
@@ -147,13 +150,40 @@ export const ForecastProvider = ({ children }: { children: ReactNode }) => {
   const [forecast, setForecast] = useState<Forecast | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [fromCache, setFromCache] = useState<boolean | null>(null);
+  const [responseTime, setResponseTime] = useState<number | null>(null);
+  const [statusCode, setStatusCode] = useState<number | null>(null);
 
   const getForecast = async () => {
     setLoading(true);
-    const response = await api.getForecast(city);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setForecast(response.data);
-    setLoading(false);
+    setError(null);
+    try {
+      const response = await api.getForecast(city);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      setStatusCode(response.statusCode ?? null);
+      setFromCache(response.fromCache ?? null);
+      setResponseTime(response.responseTime ?? null);
+
+      if (response.ok && response.data) {
+        setForecast(response.data);
+        setError(null);
+      } else {
+        setForecast(null);
+        setError(
+          response.error?.message ||
+            `Error ${response.statusCode}: ${getStatusMessage(
+              response.statusCode
+            )}`
+        );
+      }
+    } catch (err) {
+      setForecast(null);
+      setError(err instanceof Error ? err.message : "Unknown error");
+      setStatusCode(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -166,12 +196,27 @@ export const ForecastProvider = ({ children }: { children: ReactNode }) => {
         setLoading,
         error,
         setError,
+        fromCache,
+        responseTime,
+        statusCode,
       }}
     >
       {children}
     </ForecastContext.Provider>
   );
 };
+
+function getStatusMessage(code: number): string {
+  const messages: Record<number, string> = {
+    200: "OK",
+    400: "BAD_REQUEST",
+    401: "UNAUTHORIZED",
+    404: "NOT_FOUND",
+    429: "TOO_MANY_REQUESTS",
+    500: "INTERNAL_SERVER_ERROR",
+  };
+  return messages[code] || "UNKNOWN_ERROR";
+}
 
 export const useForecast = () => {
   const context = useContext(ForecastContext);
